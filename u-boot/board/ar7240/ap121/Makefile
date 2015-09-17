@@ -9,6 +9,7 @@ ifeq ($(BOARD), ap121)
 SOBJS	+= hornet_pll_init.o
 endif
 
+#静态库文件需要使用“ar”来创建和维护
 $(LIB):	.depend $(OBJS) $(SOBJS)
 	$(AR) crv $@ $(OBJS) $(SOBJS)
 

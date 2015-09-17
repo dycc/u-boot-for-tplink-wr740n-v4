@@ -22,7 +22,9 @@
 #
 #v=$(shell \
 mips-openwrt-linux-uclibc-as --version|grep "GNU assembler"|awk '{print $$3}'|awk -F . '{print $$2}')
+#以上皆注释
 
+# -lt 小于
 v=22
 MIPSFLAGS=$(shell \
 if [ "$v" -lt "14" ]; then \

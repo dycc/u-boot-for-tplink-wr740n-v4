@@ -8,8 +8,17 @@
 # (C) 2002 DENX Software Engineering, Wolfgang Denk <wd@denx.de>
 #
 
+#./mkconfig -a ap121 mips mips ap121 ar7240 ar7240
+
+#不是附加文档之后，而是重新生成
 APPEND=no	# Default: Create new config file
 
+# $# 这个程式的参数个数
+# -gt 大于
+# $0 这个程式的执行名字
+# $n 这个程式的第n个参数值，n=1..9
+# 将文档变为追加方式
+# shift  左移一个参数，将参数位置整体左移一个位置
 while [ $# -gt 0 ] ; do
 	case "$1" in
 	--) shift ; break ;;
@@ -18,6 +27,10 @@ while [ $# -gt 0 ] ; do
 	esac
 done
 
+#./mkconfig ap121 mips mips ap121 ar7240 ar7240
+
+#参数个数小于4退出
+#参数个数大于6退出
 [ $# -lt 4 ] && exit 1
 [ $# -gt 6 ] && exit 1
 
@@ -25,11 +38,15 @@ cd ./include
 
 #
 # Create link to architecture specific headers
-#
+# $2 = mips
 rm -f asm
 ln -s asm-$2 asm
 rm -f asm-$2/arch
 
+# $6 = ar7240
+# $3 = mips
+#-z string 如果 string 长度为零，则为真[ -z $myvar ]
+#-o 当由pathname指定的文件或目录存在并且被子当前进程的有效用户ID所指定的用户拥有时返回真
 if [ -z "$6" -o "$6" = "NULL" ] ; then
 	ln -s arch-$3 asm-$2/arch
 else
